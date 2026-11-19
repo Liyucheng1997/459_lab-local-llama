@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gemma 本地对话</title>
+  <script>
+    // 先定主题，避免闪烁
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <div id="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-top">
+        <div class="brand">
+          <div class="logo-mark">G</div>
+          <div class="brand-text">
+            <div class="brand-name">Gemma 本地</div>
+            <div class="brand-sub">E4B · Uncensored</div>
+          </div>
+        </div>
+        <button class="btn new-chat" id="newChat"></button>
+      </div>
+      <div class="conv-list" id="convList"></div>
+      <div class="side-foot">
+        <div class="status" id="status"><span class="dot"></span><span class="status-text">正在连接…</span></div>
+        <button class="icon-btn" id="openSettings" title="设置"></button>
+      </div>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="icon-btn only-narrow" id="toggleSide" title="对话列表"></button>
+        <div class="title" id="convTitle">新对话</div>
+        <div class="topbar-right">
+          <div class="seg" id="thinkSeg" title="回答前是否先思考">
+            <button data-v="off">直接回答</button>
+            <button data-v="on">先思考</button>
+          </div>
+          <button class="icon-btn" id="exportBtn" title="导出为 Markdown"></button>
+          <button class="icon-btn" id="themeBtn" title="切换深色 / 浅色"></button>
+        </div>
+      </header>
+
+      <div class="scroll" id="scroll">
+        <div class="thread" id="thread"></div>
+      </div>
+
+      <div class="composer-wrap">
+        <div class="composer" id="composer">
+          <div class="attachments" id="attachments"></div>
+          <textarea id="input" rows="1" placeholder="输入消息，Enter 发送，Shift + Enter 换行"></textarea>
+          <div class="composer-bar">
+            <button class="icon-btn" id="attachBtn" title="添加图片"></button>
+            <input type="file" id="fileInput" accept="image/*" multiple hidden />
+            <span class="hint" id="hint"></span>
+            <button class="send" id="sendBtn" title="发送"></button>
+          </div>
+        </div>
+        <div class="footnote">模型在本机运行，对话只保存在这个浏览器里。</div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-host" id="toastHost"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

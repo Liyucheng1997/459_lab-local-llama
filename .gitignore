@@ -1,0 +1,6 @@
+# 大文件不进仓库：模型权重、llama.cpp 运行库、下载的安装包
+models/
+llama.cpp/
+downloads/
+*.gguf
+*.zip
